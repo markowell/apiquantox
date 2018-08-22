@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 22, 2018 at 09:27 AM
+-- Generation Time: Aug 22, 2018 at 02:16 PM
 -- Server version: 5.7.9
 -- PHP Version: 7.1.16
 
@@ -29,10 +29,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `requests` (
-  `id` int(11) NOT NULL,
-  `event` enum('VIEW','PLAY','CLICK') DEFAULT 'VIEW',
-  `country` varchar(45) DEFAULT NULL,
-  `date` datetime DEFAULT NULL,
+  `event` enum('VIEW','PLAY','CLICK') NOT NULL DEFAULT 'VIEW',
+  `country` varchar(45) NOT NULL,
+  `date` datetime NOT NULL,
   `counter` int(11) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -40,24 +39,24 @@ CREATE TABLE `requests` (
 -- Dumping data for table `requests`
 --
 
-INSERT INTO `requests` (`id`, `event`, `country`, `date`, `counter`) VALUES
-(4, 'PLAY', 'us', '2018-08-21 00:00:00', 7),
-(5, 'CLICK', 'us', '2018-08-22 00:00:00', 2),
-(6, 'CLICK', 'ca', '2018-08-22 00:00:00', 0),
-(7, 'CLICK', 'sr', '2018-08-22 00:00:00', 1),
-(8, 'CLICK', 'tr', '2018-08-22 00:00:00', 5),
-(9, 'VIEW', 'tr', '2018-08-22 00:00:00', 11),
-(10, 'PLAY', 'us', '2018-08-20 00:00:00', 7),
-(11, 'VIEW', 'sr', '2018-08-22 00:00:00', 17),
-(12, 'VIEW', 'ch', '2018-08-22 00:00:00', 26),
-(13, 'VIEW', 'aut', '2018-08-22 00:00:00', 10),
-(14, 'CLICK', 'aut', '2018-08-22 00:00:00', 6),
-(15, 'PLAY', 'aut', '2018-08-22 00:00:00', 21),
-(16, 'PLAY', 'uk', '2018-08-22 00:00:00', 36),
-(17, 'VIEW', 'uk', '2018-08-22 00:00:00', 1),
-(18, 'CLICK', 'uk', '2018-08-22 00:00:00', 1),
-(19, 'VIEW', 'ch', '2018-08-17 00:00:00', 26),
-(20, 'PLAY', 'ch', '2018-08-22 00:00:00', 1);
+INSERT INTO `requests` (`event`, `country`, `date`, `counter`) VALUES
+('VIEW', 'aut', '2018-08-22 00:00:00', 10),
+('VIEW', 'ch', '2018-08-17 00:00:00', 26),
+('VIEW', 'ch', '2018-08-22 00:00:00', 26),
+('VIEW', 'sr', '2018-08-22 00:00:00', 17),
+('VIEW', 'tr', '2018-08-22 00:00:00', 11),
+('VIEW', 'uk', '2018-08-22 00:00:00', 1),
+('PLAY', 'aut', '2018-08-22 00:00:00', 21),
+('PLAY', 'ch', '2018-08-22 00:00:00', 1),
+('PLAY', 'uk', '2018-08-22 00:00:00', 36),
+('PLAY', 'us', '2018-08-20 00:00:00', 7),
+('PLAY', 'us', '2018-08-21 00:00:00', 7),
+('CLICK', 'aut', '2018-08-22 00:00:00', 6),
+('CLICK', 'ca', '2018-08-22 00:00:00', 0),
+('CLICK', 'sr', '2018-08-22 00:00:00', 1),
+('CLICK', 'tr', '2018-08-22 00:00:00', 5),
+('CLICK', 'uk', '2018-08-22 00:00:00', 1),
+('CLICK', 'us', '2018-08-22 00:00:00', 2);
 
 --
 -- Indexes for dumped tables
@@ -67,17 +66,8 @@ INSERT INTO `requests` (`id`, `event`, `country`, `date`, `counter`) VALUES
 -- Indexes for table `requests`
 --
 ALTER TABLE `requests`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `requests`
---
-ALTER TABLE `requests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  ADD PRIMARY KEY (`event`,`country`,`date`),
+  ADD KEY `event` (`event`,`country`,`date`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

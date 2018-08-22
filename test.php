@@ -40,7 +40,7 @@ if (isset($response->body) && ('200' == $response->code) && ($_SERVER['REQUEST_M
         }
         header('Content-Type: text/xml');
         echo $xml->asXML();
-    } else if (isset($_GET['type'] && $_GET['type'] == 'csv') {
+    } else if (isset($_GET['type']) && $_GET['type'] == 'csv') {
         $file = fopen("quantox.csv","w");
         foreach ($response->body as $line) {
             fputcsv($file,$line);
