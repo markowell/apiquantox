@@ -23,8 +23,7 @@ class Requests{
         $res = $this->conn->prepare($query);
      
         $res->execute();
-        $res = $res->fetchAll(PDO::FETCH_ASSOC);
-        return $res;
+        return $res->fetchAll(PDO::FETCH_ASSOC);
     }
     public function increateCounter() {
         $query = "  INSERT INTO " . $this->table_name." (`event`, `country`, `date`)

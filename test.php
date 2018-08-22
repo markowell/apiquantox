@@ -6,12 +6,13 @@ include_once 'class.Requests.php';
  
 $database = new Database();
 $db = $database->createConnection();
-// POST REQUEST
+
 $response = new stdClass(array(
     "code" => 500,
     "message" => "Bad request",
     "body" => array(),
 ));
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $data = file_get_contents('php://input');
     $json_data = json_decode($data);
@@ -31,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $response->message = "Success";
 } 
 if (isset($response->body) && ('200' == $response->code) && ($_SERVER['REQUEST_METHOD'] == 'GET')) {
-    if ($_GET['type'] == 'xml') {
+    if (isset($_GET['type']) && $_GET['type'] == 'xml') {
         $xml = new SimpleXMLElement('<data/>');
         foreach ($response->body as $key => $array) {
             $array = array_flip($array);
@@ -39,7 +40,7 @@ if (isset($response->body) && ('200' == $response->code) && ($_SERVER['REQUEST_M
         }
         header('Content-Type: text/xml');
         echo $xml->asXML();
-    } else if ($_GET['type'] == 'csv') {
+    } else if (isset($_GET['type'] && $_GET['type'] == 'csv') {
         $file = fopen("quantox.csv","w");
         foreach ($response->body as $line) {
             fputcsv($file,$line);
