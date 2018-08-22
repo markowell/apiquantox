@@ -16,7 +16,7 @@ class Requests{
                         (SELECT DISTINCT `country` as countr FROM " . $this->table_name . "
                             GROUP BY `country`
                             ORDER BY SUM(`counter`) DESC
-                            LIMIT 2) sub  on " . $this->table_name . ".`country` in (sub.countr)
+                            LIMIT 5) sub  on " . $this->table_name . ".`country` in (sub.countr)
                     WHERE `date` >= DATE(NOW()) - INTERVAL 7 DAY
                     GROUP BY `event`,`country`
                     ";
